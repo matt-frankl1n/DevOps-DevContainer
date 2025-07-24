@@ -5,9 +5,10 @@ This directory contains the development container configuration for the Kubernet
 ## 🚀 Quick Start
 
 1. **Prerequisites**: Ensure you have VS Code with the Dev Containers extension installed
-2. **Open in Container**: VS Code will automatically prompt to reopen in container when you open this repository
-3. **Automatic Setup**: All tools and configurations are installed automatically via the post-create script
-4. **Verify Installation**: Run `.devcontainer/scripts/validate-setup.sh` to verify all tools are working
+2. Add repo files to .devcontainer directory in your repository
+3. **Open in Container**: VS Code will automatically prompt to reopen in container when you open this repository
+4. **Automatic Setup**: All tools and configurations are installed automatically via the post-create script
+
 
 ## 📋 What's Included
 
@@ -61,9 +62,6 @@ This directory contains the development container configuration for the Kubernet
 ├── README.md                  # This file
 ├── scripts/
 │   ├── post-create.sh         # Main setup script
-│   ├── validate-setup.sh      # Validation and testing
-│   ├── test-completions.sh    # Test CLI completions
-│   ├── test-krew.sh          # Test kubectl plugins
 │   └── setup-zsh.sh          # ZSH configuration helper
 └── local-features/
     └── copy-kube-config/      # Kubernetes config mounting
@@ -88,7 +86,6 @@ The Starship prompt shows:
 - **Docker context** (🐳 context)
 - **Command execution time** (for commands > 2s)
 - **Current directory** with smart truncation
-- **Time display** (🕙 HH:MM:SS)
 
 ### Pre-configured Aliases
 
