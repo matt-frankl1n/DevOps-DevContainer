@@ -1,0 +1,103 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/kubernetes-helm
+{
+  "name": "Kubernetes - Local Configuration",
+  // Use base image for simplicity and install tools in post-create
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+      "enableNonRootDocker": "true",
+      "moby": "true"
+    },
+    "./local-features/copy-kube-config": {}
+  },
+
+  "remoteEnv": {
+    "SYNC_LOCALHOST_KUBECONFIG": "true",
+    "HOMEBREW_NO_AUTO_UPDATE": "1",
+    "HOMEBREW_NO_ANALYTICS": "1"
+  },
+
+  "initializeCommand": ".devcontainer/scripts/ensure-mount-sources.sh",
+  "mounts": [
+    {
+      "source": "${env:HOME}${env:USERPROFILE}/.kube",
+      "target": "/usr/local/share/kube-localhost",
+      "type": "bind"
+    },
+    // Optional mount to also sync certs in your .minikube folder
+    {
+      "source": "${env:HOME}${env:USERPROFILE}/.minikube",
+      "target": "/usr/local/share/minikube-localhost",
+      "type": "bind"
+    }
+  ],
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": ".devcontainer/scripts/post-create.sh",
+
+  // Configure tool-specific properties.
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/bin/bash"
+          },
+          "zsh": {
+            "path": "/bin/zsh"
+          }
+        },
+        "terminal.integrated.fontFamily": "MesloLGS NF, 'Courier New', monospace",
+        "files.associations": {
+          "*.yaml": "yaml",
+          "*.yml": "yaml",
+          "Dockerfile*": "dockerfile",
+          "*.tf": "terraform",
+          "*.tfvars": "terraform"
+        },
+        "yaml.schemas": {
+          "https://json.schemastore.org/kustomization": "kustomization.yaml",
+          "https://raw.githubusercontent.com/fluxcd/helm-controller/main/docs/api/v2beta1/helmrelease.json": "**/helm-releases/*.yaml",
+          "https://raw.githubusercontent.com/fluxcd/source-controller/main/docs/api/v1beta2/helmrepository.json": "**/helm-repositories/*.yaml"
+        },
+        "kubernetes.useWsl": false,
+        "redhat.telemetry.enabled": false,
+        "yaml.customTags": ["!encrypted/pkcs1-oaep", "!vault"],
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.organizeImports": "explicit"
+        },
+        "workbench.iconTheme": "material-icon-theme",
+        "git.autofetch": true,
+        "explorer.confirmDelete": false,
+        "explorer.confirmDragAndDrop": false
+      },
+      "extensions": [
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "redhat.vscode-yaml",
+        "hashicorp.terraform",
+        "ms-vscode.vscode-json",
+        "yzhang.markdown-all-in-one",
+        "redhat.ansible",
+        "ms-vscode-remote.remote-containers",
+        "github.copilot",
+        "github.copilot-chat",
+        "ms-python.python",
+        "ms-python.flake8",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "oderwat.indent-rainbow",
+        "PKief.material-icon-theme"
+      ]
+    }
+  }
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
+}
