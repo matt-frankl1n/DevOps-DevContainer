@@ -337,29 +337,9 @@ The netshoot container includes 100+ network tools:
 
 ### Common Issues
 
-#### 1. Tools Not Found
+#### 1. Krew Plugins Not Available
 ```bash
-# Check if tools are installed
-.devcontainer/scripts/validate-setup.sh
-
-# Manually source shell configuration
-source ~/.zshrc  # or source ~/.bashrc
-```
-
-#### 2. Completions Not Working
-```bash
-# Test completions
-.devcontainer/scripts/test-completions.sh
-
-# Reload shell configuration
-exec zsh  # or exec bash
-```
-
-#### 3. Krew Plugins Not Available
-```bash
-# Test krew installation
-.devcontainer/scripts/test-krew.sh
-
+#NOTE SOME PLUGINS NOT AVAILABLE ON ARM64
 # Check krew path
 echo $PATH | grep krew
 
@@ -367,7 +347,7 @@ echo $PATH | grep krew
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 ```
 
-#### 4. Netshoot Plugin Issues
+#### 2. Netshoot Plugin Issues
 ```bash
 # Verify netshoot installation
 kubectl krew list | grep netshoot
